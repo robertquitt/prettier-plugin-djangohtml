@@ -4,7 +4,7 @@
   "description": "A prettier plugin to format django html templates",
   "main": "src/index.js",
   "scripts": {
-    "test": "prettier --plugin . index.html --parser django-html"
+    "test": "prettier --plugin . base.html --parser django-html"
   },
   "repository": {
     "type": "git",

@@ -1,15 +1,15 @@
 const htmlparser = require("htmlparser2");
 const {
   doc: {
-    builders: { concat }
+    builders: { concat, join }
   }
 } = require("prettier");
 
-var dom;
+var globalDom;
 
 const handler = new htmlparser.DomHandler(function(error, dom) {
   if (error) console.log(error);
-  else poo = dom;
+  globalDom = dom;
 });
 
 const parser = new htmlparser.Parser(handler);
@@ -17,27 +17,32 @@ const parser = new htmlparser.Parser(handler);
 function printDjangoHtml(path, options, print) {
   const node = path.getValue();
 
-  var a;
-
   if (Array.isArray(node)) {
     return concat(path.map(print));
   }
 
   switch (node.type) {
     case "text":
-      return node.data
+      return node.data;
     case "tag":
-      return concat(
-        [
-          '<',
-          node.name,
-          '>',
-          concat(path.map(print, 'children')),
-          '</',
-          node.name,
-          '>'
-        ]
-      )
+      return concat([
+        "<",
+        node.name,
+        " ",
+        join(
+          " ",
+          Object.keys(node.attribs).map((key, index) =>
+            join("=", [key, join(node.attribs[key], ['"', '"'])])
+          )
+        ),
+        ">",
+        concat(path.map(print, "children")),
+        "</",
+        node.name,
+        ">"
+      ]);
+    case "script":
+      return "<!-- HI I'M A SCRIPT TAG -->";
     default:
       return "hi";
   }
@@ -56,7 +61,7 @@ const parsers = {
     parse: text => {
       parser.write(text);
       parser.end();
-      return poo;
+      return globalDom;
     },
     astFormat: "django-html-ast"
   }
