@@ -1,0 +1,26 @@
+{
+  "name": "prettier-plugin-djangohtml",
+  "version": "0.0.1",
+  "description": "A prettier plugin to format django html templates",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "prettier --plugin . index.html --parser django-html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/robertquitt/prettier-plugin-djangohtml.git"
+  },
+  "author": "Robert Quitt <robertq@csua.berkeley.edu>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/robertquitt/prettier-plugin-djangohtml/issues"
+  },
+  "homepage": "https://github.com/robertquitt/prettier-plugin-djangohtml#readme",
+  "dependencies": {
+    "htmlparser2": "^3.10.0",
+    "prettier": "^1.16.4"
+  },
+  "devDependencies": {
+    "jest": "^24.1.0"
+  }
+}
