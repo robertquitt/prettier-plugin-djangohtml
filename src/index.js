@@ -5,7 +5,7 @@ const {
   }
 } = require("prettier");
 
-var globalDom;
+let globalDom;
 
 const handler = new htmlparser.DomHandler(function(error, dom) {
   if (error) console.log(error);
